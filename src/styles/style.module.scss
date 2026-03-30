@@ -19,6 +19,10 @@
   color: var(--primary);
 }
 
+.side_bar_list {
+  list-style: none;
+}
+
 .main_side_bar {
   background-color: var(--foreground);
   width: 2em;

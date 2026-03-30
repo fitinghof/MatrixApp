@@ -1,9 +1,12 @@
 use leptos::prelude::*;
 use leptos::task::spawn_local;
+use leptos::{logging::debug_log, tachys::view};
 
+use matrix_sdk::ruma::room::RoomType;
 use matrix_sdk::{
     Client,
-    ruma::{UserId, user_id},
+    media::MediaThumbnailSettings,
+    ruma::{UserId, events::room::name, user_id},
 };
 
 use crate::ClientContext;
@@ -12,10 +15,50 @@ stylance::import_style!(style, "../styles/style.module.scss");
 
 #[component]
 pub fn side_bar() -> impl IntoView {
+    let client_context = expect_context::<RwSignal<Option<ClientContext>, LocalStorage>>();
+    let client = client_context.get().unwrap().0;
+    debug_log!("{}", client.rooms().len());
+
+    let rooms = client
+        .rooms()
+        .into_iter()
+        .filter(|r| r.create_content().and_then(|c| c.room_type) == Some(RoomType::Space))
+        .map(|r| {
+            let avatar = r.avatar_url();
+            let name = r
+                .cached_display_name()
+                .unwrap_or(matrix_sdk::RoomDisplayName::Empty);
+
+            view! {
+                <li class=style::side_bar_list>
+                    {
+                        match avatar {
+                            Some(url) => view! {
+                                <img src=url.to_string() alt="a"/>
+                            }.into_any(),
+
+                            None => {
+                                match name {
+                                    matrix_sdk::RoomDisplayName::Named(name) => {
+                                        view! { {name} }.into_any()
+                                    }
+                                    _ => view! { "" }.into_any(),
+                                }
+                            }
+                        }
+                    }
+                </li>
+            }
+        })
+        .collect_view();
+
     view! {
         <div class=style::main_side_bar>
-            a
+            <ul>
+                {rooms}
+            </ul>
         </div>
+
     }
 }
 #[component]
@@ -40,6 +83,11 @@ pub fn login() -> impl IntoView {
                 .matrix_auth()
                 .login_username(user, &password.get())
                 .send()
+                .await
+                .unwrap();
+
+            client
+                .sync_once(matrix_sdk::config::SyncSettings::default())
                 .await
                 .unwrap();
 
