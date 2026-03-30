@@ -1,0 +1,11 @@
+[package]
+name = "Matrix"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+leptos = { version = "0.8.17", features = ["csr"] }
+matrix-sdk = { version = "0.16.0", features = ["e2e-encryption", "qrcode", "bundled-sqlite", "indexeddb", "socks", "sso-login"] }
+stylance = "0.7.4"
+tokio = "1.50.0"
+wasm-bindgen = "0.2.115"

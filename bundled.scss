@@ -1,0 +1,26 @@
+:root {
+    --background: rgb(89, 255, 255);
+    --foreground: rgb(8, 102, 102);
+    --primary: black
+    --seconday: gray
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: rgb(24, 24, 24);
+    --foreground: rgb(80, 80, 80);
+    --primary: white;
+    --secondary: gray
+  }
+}
+
+body {
+  background-color: var(--background);
+  color: var(--primary);
+}
+
+.main_side_bar-3073e53 {
+  background-color: var(--foreground);
+  width: 2em;
+  height: 2em;
+}
