@@ -6,10 +6,14 @@ version = 4
 name = "Matrix"
 version = "0.1.0"
 dependencies = [
+ "console_error_panic_hook",
  "getrandom 0.3.4",
+ "gloo-storage",
  "leptos",
  "matrix-sdk",
+ "serde",
  "stylance",
+ "thiserror 2.0.18",
  "wasm-bindgen",
 ]
 
@@ -505,6 +509,16 @@ dependencies = [
  "serde_core",
  "toml 1.1.0+spec-1.1.0",
  "winnow 1.0.1",
+]
+
+[[package]]
+name = "console_error_panic_hook"
+version = "0.1.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a06aeb73f470f66dcdbf7223caeebb85984942f22f1adb2a088cf9668146bbbc"
+dependencies = [
+ "cfg-if",
+ "wasm-bindgen",
 ]
 
 [[package]]
@@ -1179,7 +1193,7 @@ dependencies = [
  "futures-channel",
  "futures-core",
  "futures-sink",
- "gloo-utils",
+ "gloo-utils 0.2.0",
  "http",
  "js-sys",
  "pin-project",
@@ -1188,6 +1202,21 @@ dependencies = [
  "thiserror 1.0.69",
  "wasm-bindgen",
  "wasm-bindgen-futures",
+ "web-sys",
+]
+
+[[package]]
+name = "gloo-storage"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e82ce7d41c6d821640a43726f6ff33c924795cc151b62e5a84d0c988c151c980"
+dependencies = [
+ "gloo-utils 0.3.0",
+ "js-sys",
+ "serde",
+ "serde_json",
+ "thiserror 2.0.18",
+ "wasm-bindgen",
  "web-sys",
 ]
 
@@ -1208,6 +1237,19 @@ name = "gloo-utils"
 version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0b5555354113b18c547c1d3a98fbf7fb32a9ff4f6fa112ce823a21641a0ba3aa"
+dependencies = [
+ "js-sys",
+ "serde",
+ "serde_json",
+ "wasm-bindgen",
+ "web-sys",
+]
+
+[[package]]
+name = "gloo-utils"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4202275d95a142fa209a1e35e91c250a710c5600731372cd3464a39ed01573d6"
 dependencies = [
  "js-sys",
  "serde",
@@ -2270,7 +2312,7 @@ dependencies = [
  "base64",
  "futures-util",
  "getrandom 0.2.17",
- "gloo-utils",
+ "gloo-utils 0.2.0",
  "growable-bloom-filter",
  "hkdf",
  "js-sys",

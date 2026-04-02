@@ -15,3 +15,7 @@ matrix-sdk = { version = "0.16.0", default-features = false, features = [
 stylance = "0.7.4"
 wasm-bindgen = "0.2.115"
 getrandom = { version = "0.3.4", features = ["wasm_js"] }
+thiserror = "2.0.18"
+console_error_panic_hook = "0.1.7"
+gloo-storage = "0.4.0"
+serde = { version = "1.0.228", features = ["derive"] }
