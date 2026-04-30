@@ -1,8 +1,9 @@
 use gloo_storage::Storage;
 use leptos::logging::debug_log;
-use leptos::prelude::*;
 use leptos::task::spawn_local;
+use leptos::{ev, prelude::*};
 
+use leptos::html::{Style, div};
 use matrix_sdk::ruma::room::RoomType;
 use matrix_sdk::ruma::user_id;
 use matrix_sdk::{Client, ruma::UserId};
@@ -40,13 +41,7 @@ pub fn main_page() -> impl IntoView {
     });
     debug_log!("MainPage");
 
-    view! {
-        <div>
-            <SideBar/>
-            // if something {<SpaceContainer/>}
-        </div>
-
-    }
+    div().child(SideBar())
 }
 
 #[component]
@@ -93,7 +88,7 @@ pub fn side_bar() -> impl IntoView {
                                         matrix_sdk::RoomDisplayName::Named(name) => {
                                             view! { {name} }.into_any()
                                         }
-                                        _ => view! { "" }.into_any(),
+                                        _ => view! { "-" }.into_any(),
                                     }
                                 }
                             }
